@@ -7,12 +7,15 @@
 
 import SwiftUI
 
-struct CategoryModel: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-    }
+struct CategoryModel: Identifiable, Hashable {
+    var id: UUID = .init()
+    var icon: String
+    var title: String
 }
 
-#Preview {
-    CategoryModel()
-}
+var categoryList: [CategoryModel] = [
+    CategoryModel(icon: "", title: "All"),
+    CategoryModel(icon: "star.fill", title: "Choco"),
+    CategoryModel(icon: "heart.fill", title: "Waffles"),
+    CategoryModel(icon: "airplane", title: "Toffee"),
+]
