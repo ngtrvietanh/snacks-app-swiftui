@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CollectionView: View {
-    
+    @EnvironmentObject var cartManager: CartManager
     @Environment(\.presentationMode) var mode
     
     var body: some View {
@@ -20,28 +20,37 @@ struct CollectionView: View {
                             .font(.system(size: 30))
                             .padding(.trailing)
                         Spacer()
-                        Image(systemName: "arrow.left")
-                            .imageScale(.large)
-                            .padding()
-                            .frame(width: 70,height: 90)
-                            .overlay(RoundedRectangle(cornerRadius: 50).stroke().opacity(0.4))
+                        Button {
+                            mode.wrappedValue.dismiss()
+                        } label: {
+                            Image(systemName: "arrow.left")
+                                .imageScale(.large)
+                                .padding()
+                                .frame(width: 70,height: 90)
+                                .overlay(RoundedRectangle(cornerRadius: 50).stroke().opacity(0.4))
+                        }
+                        .foregroundColor(.black)
                     }
                     .padding(30)
                     
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], content: {
                         ForEach(productList, id: \.id){ item in
-                            SmallProductCard(product: item)}
+                            SmallProductCard(product: item)
+                            .environmentObject(cartManager)}
                     })
                     .padding(.horizontal)
                 }
             }
         }
+        .navigationBarHidden(true)
     }
 }
 
 
 struct SmallProductCard: View {
     var product: ProductModel
+    @EnvironmentObject var cartManager: CartManager
+    
     var body: some View {
         ZStack {
             Image(product.image)
@@ -65,7 +74,7 @@ struct SmallProductCard: View {
                             .font(.system(size: 14, weight: .semibold))
                         Spacer()
                         Button {
-                            
+                            cartManager.addToCard(product: product)
                         } label: {
                             Image (systemName: "basket")
                                 .imageScale(.large)
@@ -96,4 +105,5 @@ struct SmallProductCard: View {
 
 #Preview {
     CollectionView()
+        .environmentObject(CartManager())
 }

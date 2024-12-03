@@ -7,12 +7,17 @@
 
 import SwiftUI
 
-struct CartManager: View {
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+class CartManager: ObservableObject {
+    @Published private(set) var products: [ProductModel] = []
+    @Published private(set) var total: Int = 0
+    
+    func addToCard (product:ProductModel) {
+        products.append(product)
+        total += product.price
     }
-}
-
-#Preview {
-    CartManager()
+    
+    func removeFromCart (product:ProductModel) {
+        products = products.filter { $0.id != product.id }
+        total -= product.price
+    }
 }

@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct Home: View {
+    @EnvironmentObject var cartManager: CartManager
     @State var selectedCategory = "All"
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -35,6 +37,7 @@ struct Home: View {
                         Spacer()
                         NavigationLink {
                             CollectionView()
+                                .environmentObject(cartManager)
                         } label: {
                             Image(systemName: "arrow.right")
                                 .imageScale(.large)
@@ -43,11 +46,11 @@ struct Home: View {
                     }
                     .padding(.horizontal, 30)
                     .padding(.vertical, 15)
-                    
                     ScrollView(.horizontal, showsIndicators: false){
                         HStack {
                             ForEach (productList, id: \.id) {item in
                                 ProductCard(product: item)
+                                    .environmentObject(cartManager)
                             }
                         }
                     }
@@ -58,7 +61,9 @@ struct Home: View {
 }
 
 struct ProductCard: View {
+    @EnvironmentObject var cartManager: CartManager
     var product: ProductModel
+    
     var body: some View {
         ZStack {
             Image(product.image)
@@ -82,7 +87,7 @@ struct ProductCard: View {
                             .font(.system(size: 24, weight: .semibold))
                         Spacer()
                         Button {
-                            
+                            cartManager.addToCard(product: product)
                         } label: {
                             Image (systemName: "basket")
                                 .imageScale(.large)
@@ -91,6 +96,7 @@ struct ProductCard: View {
                                 .clipShape(Capsule())
                                 .foregroundColor(.white)
                         }
+                        .padding(.horizontal, -10)
                     }
                     .padding(.leading)
                     .padding()
@@ -113,4 +119,5 @@ struct ProductCard: View {
 
 #Preview {
     Home()
+        .environmentObject(CartManager())
 }

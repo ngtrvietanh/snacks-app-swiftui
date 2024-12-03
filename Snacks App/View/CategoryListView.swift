@@ -39,6 +39,6 @@ struct CategoryListView: View {
     }
 }
 #Preview {
-    @State var dummySelectedCategory = ""
+    @Previewable @State var dummySelectedCategory = ""
     return CategoryListView(selectedCategory: $dummySelectedCategory)
 }
