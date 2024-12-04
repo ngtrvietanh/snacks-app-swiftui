@@ -1,3 +1,11 @@
+//
+//  Character.swift
+//  Snacks App
+//
+//  Created by Việt Anh on 4/12/24.
+//
+
+
 import Foundation
 
 struct Character: Identifiable, Codable {
