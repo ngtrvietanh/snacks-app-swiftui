@@ -9,9 +9,18 @@ import SwiftUI
 
 @main
 struct Snacks_AppApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
-    }
+    // đồng bộ với UserDefaults.standard.bool(forKey: "isLoggedIn")
+      @AppStorage("isLoggedIn") private var isLoggedIn: Bool = false
+
+      var body: some Scene {
+          WindowGroup {
+              if isLoggedIn {
+                  // Nếu đã login → hiện HomeView
+                  HomeView()
+              } else {
+                  // Nếu chưa login → hiện LoginView
+                  LoginView()
+              }
+          }
+      }
 }
