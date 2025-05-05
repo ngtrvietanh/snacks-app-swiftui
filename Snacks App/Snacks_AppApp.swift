@@ -16,7 +16,7 @@ struct Snacks_AppApp: App {
           WindowGroup {
               if isLoggedIn {
                   // Nếu đã login → hiện HomeView
-                  HomeView()
+                  NotificationView()
               } else {
                   // Nếu chưa login → hiện LoginView
                   LoginView()

@@ -125,16 +125,14 @@ struct LoginView: View {
 
                 // Nút đăng nhập
                 Button(action: {
-                    controller.login(userName: userName, password: password) { message in
+                    controller.login(userName: userName, password: password) {message, token in
                         alertMessage = message
 
-                        if message.lowercased().contains("success") {
-                            // ✅ Lưu trạng thái đăng nhập
+                        if message.lowercased().contains("success"), let token = token {
                             UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                            UserDefaults.standard.set(token, forKey: "userToken") // ✅ Lưu token
 
-                            // ✅ Lưu tên người dùng nếu bật ghi nhớ
                             if rememberMe {
-                                print("===> ghi nhớ", userName)
                                 UserDefaults.standard.set(userName, forKey: "savedUserName")
                             } else {
                                 UserDefaults.standard.removeObject(forKey: "savedUserName")
