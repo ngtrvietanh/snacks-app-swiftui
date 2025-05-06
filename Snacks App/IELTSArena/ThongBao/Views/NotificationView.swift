@@ -27,17 +27,19 @@ struct NotificationView: View {
                         .foregroundColor(.gray)
                 } else {
                     List(notifications) { notification in
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(notification.title)
-                                .font(.headline)
-                            Text(notification.message)
-                                .font(.subheadline)
-                                .foregroundColor(.gray)
-                            Text(notification.createdAt)
-                                .font(.caption)
-                                .foregroundColor(.secondary)
+                        NavigationLink(destination: NotificationDetailView(notification: notification)) {
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(notification.title)
+                                    .font(.headline)
+                                Text(notification.message)
+                                    .font(.subheadline)
+                                    .foregroundColor(.gray)
+                                Text(notification.createdAt)
+                                    .font(.caption)
+                                    .foregroundColor(.secondary)
+                            }
+                            .padding(.vertical, 8)
                         }
-                        .padding(.vertical, 8)
                     }
                 }
             }

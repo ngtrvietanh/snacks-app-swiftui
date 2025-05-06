@@ -11,7 +11,7 @@ class NotificationService {
     static let shared = NotificationService()
 
     func fetchNotifications(token: String, completion: @escaping (Result<[NotificationModel], Error>) -> Void) {
-        guard let url = URL(string: "https://erp.ieltsarena.edu.vn/api/notification?page=1&perPage=99999&size=99999&status=unread") else {
+        guard let url = URL(string: "https://erp.ieltsarena.edu.vn/api/notification?page=1&perPage=99999&size=99999") else {
             completion(.failure(NSError(domain: "", code: -1)))
             return
         }
